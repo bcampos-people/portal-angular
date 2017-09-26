@@ -1,0 +1,95 @@
+﻿<section id="bg_home">
+  <div class="left_login">
+    <div class="content_center">
+      <img src="assets/images/logo_login.png"><br>
+      <h1>Portal de pacientes</h1>
+    </div>
+  </div>
+
+  <!--SEND E-MAIL-->
+  <div class="right_login" id="login_confirm" ng-show="loginEmailRemember.sendMode && !loginEmailRemember.showError">
+    <div class="content_center">
+      <h2>Esqueceu sua senha?</h2>
+      <p>Digite seu login que enviaremos um email para você redefinir a sua senha:</p>
+      <form ng-submit="loginEmailRemember.sendEmail()">
+        
+        <input type="text" placeholder="Login" name="login" ng-model="loginEmailRemember.username" required />
+        
+        <a ng-click="loginEmailRemember.rememberLogin()" class="link">Esqueci meu login</a>
+
+        <div class="content_bts">
+          <button class="bt_default bt_large" type="submit">Enviar</button>
+        </div>
+        <a href="javascript:history.go(-1);" class="link">Voltar</a>
+
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-show="loginEmailRemember.loading">
+          <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <!--SEND LOGIN E-MAIL-->
+  <div class="right_login" id="login_confirm" ng-show="loginEmailRemember.sendModeLogin">
+    <div class="content_center">
+      <h2>Esqueceu seu login?</h2>
+      <p>Digite sua data de nascimento e seu e-mail para você redefinir a sua senha:</p>
+      <form ng-submit="loginEmailRemember.sendLoginEmail()">
+
+        <input type="date" name="inputBirthDate" ng-model="loginEmailRemember.birthDate" placeholder="Data Nascimento (dd/mm/aaaa)" maxlength="10" required/>
+        
+        <input ng-model="loginEmailRemember.email" type="email" placeholder="E-mail" required>
+
+        <div class="content_bts">
+          <button class="bt_default bt_large" type="submit">Enviar</button>
+        </div>
+
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-show="loginEmailRemember.loading">
+          <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
+        </div>  
+
+        <a href="javascript:history.go(-1);" class="link">Voltar</a>
+      </form>
+    </div>
+  </div>
+
+  <!--CONFIRMATION-->
+  <div class="right_login" id="login_confirm" ng-show="!loginEmailRemember.sendMode && !loginEmailRemember.showError && loginEmailRemember.showSuccess">
+    <div class="content_center">
+      <img src="assets/images/ico_mail.png">
+      <p>Um email foi enviado para você redefinir sua senha.</p>
+      <a ui-sref="root.login" class="bt_default bt_large">Voltar</a>
+    </div>
+  </div>
+
+  <!--E-mail nao encontrado-->
+  <div class="right_login" id="login_confirm" ng-show="loginEmailRemember.showError">
+    <div class="content_center">
+      <!--<img src="assets/images/ico_mail.png">-->
+      <p class="red">
+        {{loginEmailRemember.errorMsg}}
+      </p>
+      <a ui-sref="root.login" ng-click="loginEmailRemember.clear()" class="bt_default bt_large">Voltar</a>
+    </div>
+  </div>
+
+</section>
+
+<!--TODO Demo - REMOVER-->
+<script type="text/javascript">
+  var mobile = (/iphone|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
+  if (mobile) { } else {
+    function Resize() {
+      //console.log("resize");
+      altura_janela = $(window).height() - 216;
+      $('#bg_home').css('height', altura_janela + "px")
+    }
+    $(function () {
+      Resize();
+    })
+    $(window).resize(function () {
+      Resize();
+    })
+  }
+
+</script>

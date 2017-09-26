@@ -1,0 +1,132 @@
+<header>
+  <section class="menu_principal">
+    <div class="container">
+      <a href="http://www.rededor.com.br/" target="_blank" class="logo_header">
+        <img src="assets/images/logo_dor.png" alt="Redes D'or São Luiz">
+        <img src="assets/images/logo_mobile.png?1" alt="Redes D'or São Luiz" class="mobile">
+      </a>
+
+      <a ng-click="headerController.goHome()" style="cursor: pointer">
+        <h1>Portal de pacientes</h1>
+      </a>
+
+      <div class="perfil">
+        <div class="foto_perfil" style="background-image:url({{headerController.userImage}})"></div>
+        <div class="dados_perfil hidden_mobile">
+          <span class="name">{{headerController.credential.name}}</span><br>
+          <span class="access">Último acesso: {{headerController.credential.lastAccess | date:'dd/MM/yyyy HH:mm'}}</span><br>
+          <a ng-show="headerController.hasChangePerfil()" ui-sref="patient-choose-perfil" class="change">Trocar perfil</a>
+          <!--<a href="#" class="change">Trocar perfil</a>-->
+        </div>
+        <div id="menu_mobile" class="mobile"></div>
+      </div>
+      <!--Fim perfil-->
+
+      <!--MENU DESKTOP-->
+      <ul class="menu_header">
+        <li  style="display: none" class="hidden_mobile"><!--//TODO Demo - display none-->
+          <a ui-sref="organization_list">
+            <center>
+              <span class="icon icon-ico_localizacao"></span><br>
+              <span>Locais de Exames</span>
+            </center>
+          </a>
+        </li>
+        <li class="hidden_mobile">
+          <a ng-click="headerController.goPerfil()" style="cursor: pointer">
+            <center>
+              <img src="assets/images/ico_menu_v2.png?1"><br>
+              <span>Meu Perfil</span>
+            </center>
+          </a>
+        </li>
+        <li style="display: none"><!--//TODO Demo - display none-->
+          <a href="javascript:void(0)">
+            <center>
+              <span class="icon icon-ico_notificacao"></span><br>
+              <span class="hidden_mobile">Notificações</span>
+              <div class="alert" ng-show="headerController.hasChangePerfil()">1</div>
+              <div class="alert" ng-show="!headerController.hasChangePerfil()">2</div>
+
+            </center>
+          </a>
+          <!--HOVER NOTIFICAÇÕES-->
+          <div class="tooltip_notificacao">
+            <div class="content_not">
+              <div class="item_not" ng-show="headerController.hasChangePerfil()">
+                <span>Seu exame de tomografia de crânio já está disponível na unidade Copa D’Or.</span><br>
+                <a ng-click="headerController.goExame()">Ver detalhes</a>
+              </div>
+              <div class="item_not" ng-show="!headerController.hasChangePerfil()">
+                <span>O paciente José da Silva compartilhou exames de um atendimento com você</span><br>
+                <a ng-click="headerController.goExame()">Ver detalhes</a>
+              </div>
+              <div class="item_not" ng-show="!headerController.hasChangePerfil()">
+                <span>O paciente Paula Azevedo compartilhou exames de um atendimento com você</span><br>
+                <a ng-click="headerController.goExame()">Ver detalhes</a>
+              </div>
+            </div>
+          </div>
+          <!--FIM HOVER NOTIFICAÇÕES-->
+        </li>
+      </ul>
+      <!--FIM MENU DESKTOP-->
+
+    </div>
+    <!--Fim menu_header-->
+    <a ng-click="headerController.logout()" class="bt_default hidden_mobile">Sair</a>
+  </section>
+  <!--Fim menu_principal-->
+</header>
+
+<!--MENU MOBILE-->
+<menu class="mobile">
+  <div class="bg_close" id="close_menu"><img src="assets/images/ico_seta_right.png"></div>
+  <ul class="menu_header">
+    <li>
+      <a ui-sref="organization_list" style="border-bottom: 1px dashed">
+        <center>
+          <span class="icon icon-ico_localizacao"></span><br>
+          <span>Locais de Exames</span>
+        </center>
+      </a>
+    </li>
+    <li>
+      <a ng-click="headerController.goPerfil()">
+        <center>
+          <span class="icon icon-ico_config"></span><br>
+          <span>Configurações</span>
+        </center>
+      </a>
+    </li>
+    <li>
+      <a ng-show="headerController.hasChangePerfil()" ui-sref="patient-choose-perfil" class="bt_default">
+        <center>
+          Trocar perfil
+        </center>
+      </a>
+      <a ng-click="headerController.logout()" class="bt_default">
+        <center>
+          Sair
+        </center>
+      </a>
+    </li>
+  </ul>
+</menu>
+
+<script type="text/javascript">
+  /*MENU MOBILE*/
+  $('#menu_mobile').click(function () {
+    //$(this).removeClass('active');
+    $('menu').css('right', '0px');
+    setTimeout("$('body').css('overflow', 'hidden').css('position','relative').css('left','-76%')", 300);
+  });
+  $('#close_menu').click(function () {
+    //$(this).removeClass('active');
+    $('menu').css('right', '-150%');
+    $('body').css('overflow', '').css('position', 'relative').css('left', '');
+  });
+	/*MENU MOBILE*/
+</script>
+
+<!--FIM MENU MOBILE-->

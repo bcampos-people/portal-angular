@@ -1,0 +1,150 @@
+/* ---------- basic theme: these are the most necessary styles --------------------------------- */
+
+.scrollbar-pane {
+	margin-right: 20px;
+	padding: 0px;
+}
+.scrollbar-handle-container {
+	background: none;
+	width: 7px;
+}
+.scrollbar-handle {
+	width: 7px;
+	background: #303030;
+}
+.scrollbar-handle:hover {
+/*background: #DDD;*/
+}
+.scrollbar-handle.move {
+	background: #111;
+}
+.scrollbar-handle-up {
+	width: 15px;
+	height: 15px;/*background: #DDD;*/
+}
+.scrollbar-handle-up:hover {
+/*background: #DDD;*/
+}
+.scrollbar-handle-down {
+	width: 15px;
+	height: 15px;/*background: #DDD;*/
+}
+.scrollbar-handle-down:hover {
+/*background: #666;*/
+}
+/* ---------- simple theme --------------------------------------------------------------------- */
+
+.branco .scrollbar-pane {
+	margin-right: 20px;
+}
+.branco .scrollbar-handle-container {
+	background: none;
+	width: 39px;
+}
+.branco .scrollbar-handle-container.hover, .branco .scrollbar-handle-container.move {
+	background: none;
+}
+.branco .scrollbar-handle, .branco .scrollbar-handle-up, .branco .scrollbar-handle-down {
+	background-image: none;
+	background-repeat: no-repeat;
+}
+/* handle */
+.branco .scrollbar-handle {
+	background: url(../img/drag/imgDragBranco_Drag.png);
+	width: 39px;
+	height: 126px;
+}
+.branco .scrollbar-handle:hover {
+}
+.branco .scrollbar-handle.move {
+}
+/* arrow up */
+.branco .scrollbar-handle-up {
+	width: 39px;
+	height: 37px;
+	background: url(../img/drag/imgDragBranco_UP.png);
+}
+.branco .scrollbar-handle-up.hover, .branco .scrollbar-handle-up:hover {
+}
+.branco .scrollbar-handle-up.move {
+}
+/* arrow down */
+.branco .scrollbar-handle-down {
+	width: 39px;
+	height: 37px;
+	background: url(../img/drag/imgDragBranco_Down.png);
+}
+.branco .scrollbar-handle-down.hover, .branco .scrollbar-handle-down:hover {
+}
+.branco .scrollbar-handle-down.move {
+}
+/* ---------- simple theme --------------------------------------------------------------------- */
+
+.preto .scrollbar-pane {
+	margin-right: 20px;
+	padding: 0px;
+	width: 100%
+}
+.preto .scrollbar-handle-container {
+	background: none;
+	width: 15px;
+}
+.preto .scrollbar-handle-container.hover, .preto .scrollbar-handle-container.move {
+	background: none;
+}
+.preto .scrollbar-handle, .preto .scrollbar-handle-up, .preto .scrollbar-handle-down {
+	background-image: none;
+	background-repeat: no-repeat;
+}
+
+
+.red .scrollbar-pane {
+	margin-right: 20px;
+	padding: 0px;
+
+	width: 100%
+}
+.red .scrollbar-handle-container {
+	background: none;
+	width: 15px;
+}
+.red .scrollbar-handle{background:#df5553}
+.red .scrollbar-handle-container.hover, .red .scrollbar-handle-container.move {
+	background: none;
+}
+.red .scrollbar-handle, .red .scrollbar-handle-up, .red .scrollbar-handle-down {
+	background-image: none;
+	background-repeat: no-repeat;
+}
+
+
+/* handle */
+.scrollbar-handle {
+	background: #303030;
+	width: 7px;
+	height: 81px;
+}
+.preto .scrollbar-handle:hover {
+}
+.preto .scrollbar-handle.move {
+}
+/* arrow up */
+.preto .scrollbar-handle-up {
+/*width: 39px;
+    height: 37px;
+    background:url(../img/drag/imgDragPreto_UP.png);*/
+}
+.preto .scrollbar-handle-up.hover, .preto .scrollbar-handle-up:hover {
+}
+.preto .scrollbar-handle-up.move {
+}
+/* arrow down */
+.preto .scrollbar-handle-down {
+/*width: 39px;
+    height: 37px;
+    background:url(../img/drag/imgDragPreto_Down.png);*/
+}
+.preto .scrollbar-handle-down.hover, .preto .scrollbar-handle-down:hover {
+}
+.preto .scrollbar-handle-down.move {
+}

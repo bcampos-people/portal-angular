@@ -1,0 +1,227 @@
+<customized_header>
+</customized_header>
+
+<!--BUSCA PACIENTES-->
+<section id="busca_pacientes">
+  <div class="container">
+    <div class="busca_pacientes">
+      <h2>Busque por paciente</h2>
+      <div class="form_busca_paciente">
+        <input type="text" class="busca_input" placeholder="Nome ou idade (ex 'Carlos, 23 anos')" ng-model="practitionerListPatient.search">
+        <input type="submit" value="" class="hidden">
+      </div>
+    </div>
+    <div class="order_pacientes">
+      <span>Ordenar por</span>
+      <select ng-model="practitionerListPatient.orderBy">
+        <option value="date">Data Realização do Exame</option>
+        <option value="name">Nome do Paciente</option>
+      </select>
+    </div>
+    <!--<div class="check_pacientes">
+      <div class="wrap_check">
+        <div class="check">
+          <input type="checkbox" value="" id="check-1" name="" ng-model="practitionerListPatient.onlyFavorite" ng-click="practitionerListPatient.markOnlyFavorite()">
+          <label for="check-1"></label>
+        </div>
+        <div class="label">
+          <label for="check-1"><span>Exibir apenas pacientes em destaque</span></label>
+        </div>
+      </div>
+    </div>-->
+  </div>
+</section>
+<!--FIM BUSCA PACIENTES-->
+
+<!--LISTA PACIENTES-->
+<section class="lista_boxes">
+
+  <div layout="row" layout-sm="column" layout-align="space-around" ng-show="practitionerListPatient.loading">
+    <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+  </div>
+
+  <div class="container">
+    <div class="topo_lista">
+      <div class="info_left">
+        <span><strong>{{filtered.length}} de {{practitionerListPatient.pageSize}} pacientes</strong> que compartilharam exames com você</span>
+      </div>
+      <div class="info_right" style="display: none">
+        <a href="javascript:mover_topico('div_search');" class="link">Não encontrou seu paciente?</a>
+      </div>
+    </div>
+
+    <!-- INÍCIO LISTA PACIENTE-->
+    <div class="content_lista_paciente">
+
+      <!--INICIO LOOPING BOX-->
+      <div class="box_white" ng-repeat="p in practitionerListPatient.patients | filter : practitionerListPatient.search | orderBy: practitionerListPatient.orderBy as filtered">
+        <!--<div ng-class="{'checked': report.favorite}" class="destaque" ng-click="practitionerListPatient.markFavorite(report)">
+          <span>Destacar</span>
+          <img src="assets/images/ico_star_destaque.png">
+        </div>-->
+        <div class="header_box">
+          <div class="img_box">
+            <span>{{p.name | initialsName}}</span>
+            <div class="img_perfil_paciente" style="background-image:url({{report.photo}})"></div>
+          </div>
+          <h2>{{p.name}}</h2>
+          <span>{{p.birthDate.dateTime * 1000 | ageFilter}} anos</span>
+        </div>
+
+        <div class="bottom_box" ng-show="p.diagnostics.length > 0">
+          <h3>ÚLTIMOS EXAMES</h3>
+          <div class="content_box_exames">
+            <div class="box_exames" ng-repeat="order in p.diagnostics">
+              <div class="box_exames">
+                <div class="content_item" ng-class="{green: order.type=='LIS', blue: order.type=='RIS'}">
+                  <div class="ico">
+                    <div ng-show="order.type=='LIS'" class="img_ico"><img src="assets/images/ico_hemo.png"></div>
+                    <div ng-show="order.type=='RIS'" class="img_ico"><img src="assets/images/ico_exame.png"></div>
+                  </div>
+                </div>
+                <div class="txt_exames">
+                  <div class="nome_exame tamanho_fixo" title="{{order.description}}">{{order.description}}</div>
+                  <span class="data_exame">Realizado: {{order.releasedTime.dateTime * 1000 | date: 'dd/MM/yyyy'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a ng-click="practitionerListPatient.goToExame(p)" class="bt_default">VER EXAMES DO PACIENTE</a>
+        </div>
+
+        <div class="bottom_box" ng-show="p.diagnostics.length == 0">
+          <h3>Não há resultados disponíveis</h3>
+        </div>
+        <!--FIM LOOPING BOX-->
+
+      </div>
+      <!-- FIM INÍCIO LISTA PACIENTE-->
+
+      <!--CARREGAR MAIS-->
+      <a class="bt_default bt_large" ng-show="practitionerListPatient.showLoadMore()" data-ng-click="practitionerListPatient.loadMore()">
+        <img src="assets/images/ico_carregar.png">
+        <img src="assets/images/ico_carregar_white.png" class="hover_bt load_white"> Carregar mais
+      </a>
+
+    </div>
+</section>
+<!--FIM LISTA PACIENTES-->
+
+<!--BUSCA PACIENTES-->
+<section class="content_search pag_lista_paciente" style="display: none">
+  <!--//TODO Demo - display none-->
+  <div class="container">
+
+    <div id="return_success">
+      <img src="assets/images/ico_confirm.png">
+      <h2>Solicitação enviada ao paciente com sucesso</h2>
+      <p>Caso o paciente libere o acesso, você será notificado e verá os exames selecionados por ele. </p>
+      <a href="javascript:void(0)" class="bt_default bt_large">
+                Fazer nova busca
+            </a>
+    </div>
+    <div id="div_search">
+      <h2>Não encontrou seu paciente?</h2>
+      <p>Provavelmente ele não compartilhou com você o acesso a seus exames.<br> Você pode buscar e solicitar acesso a ele.
+      </p>
+      <div class="busca_medico">
+
+        <input type="text" class="busca_input" onkeyup="javascript:searchDoc();" placeholder="Busque o nome do paciente que deseja solicitar acesso">
+        <input type="submit" value="" class="hidden">
+
+        <!--//TODO Demo - Inserir busca por medicos do Portal Server-->
+        <div id="result_busca">
+          <ul>
+            <li>
+              <span class="nome_busca">Carmen Cerrado</span>
+              <span class="uf_busca">RJ</span>
+              <span class="nasc_busca">Nascimento: 06/09/1984</span>
+              <img src="assets/images/ico_circle_plus.png">
+            </li>
+            <li>
+              <span class="nome_busca">Felipe Bahia</span>
+              <span class="uf_busca">RJ</span>
+              <span class="nasc_busca">Nascimento: 10/11/1964</span>
+              <img src="assets/images/ico_circle_plus.png">
+            </li>
+            <li>
+              <span class="nome_busca">Kaio Roma</span>
+              <span class="uf_busca">RJ</span>
+              <span class="nasc_busca">Nascimento: 05/01/1999</span>
+              <img src="assets/images/ico_circle_plus.png">
+            </li>
+            <!--<li class="not_found">
+              <span class="nome_busca">Paciente não encontrado</span>
+            </li>-->
+          </ul>
+
+        </div>
+
+        <!-- SELEÇÃO RESULTADO BUSCA -->
+        <div id="result_busca_fixed">
+          <ul>
+            <li>
+              <span class="nome_busca">Carmen Cerrado</span>
+              <span class="uf_busca">RJ</span>
+              <span class="nasc_busca">Nascimento: 06/09/1984</span>
+              <img src="assets/images/ico_circle_menos.png">
+            </li>
+
+          </ul>
+          <a href="javascript:void(0)" class="bt_default bt_large">SOLICITAR ACESSO</a>
+        </div>
+
+        <!-- FIM SELEÇÃO RESULTADO BUSCA -->
+
+        <!--SCRIPT BUSCA -->
+        <script type="text/javascript">
+          function searchDoc() {
+            $('#result_busca').show()
+          }
+          $(function() {
+            $('#result_busca ul li').click(function(e) {
+              $('#result_busca').css('display', 'none');
+              $('#result_busca_fixed').css('display', 'block');
+            });
+
+            $('#result_busca_fixed ul li').click(function(e) {
+              $(this).css('display', 'none');
+            });
+
+            /*RETORNO SOLICITAÇÃO ACESSO*/
+            $('#result_busca_fixed .bt_default').click(function(e) {
+              $('#div_search').css('display', 'none')
+              $('#return_success').fadeIn(300)
+            });
+            $('#return_success .bt_default').click(function(e) {
+              $('#return_success').css('display', 'none')
+              $('#div_search').fadeIn(300)
+            });
+          })
+        </script>
+        <!-- FIM SCRIPT BUSCA -->
+      </div>
+    </div>
+  </div>
+</section>
+<!--FIM BUSCA PACIENTES-->
+
+<script type="text/javascript">
+  $(function() {
+
+    /* SCRIPT LISTA PACIENTES*/
+    $('.destaque').click(function(e) {
+      $(this).toggleClass('checked')
+    });
+    /*FIM SCRIPT LISTA PACIENTES*/
+
+  })
+
+  function mover_topico(elemento) {
+    var target_offset = jQuery("#" + elemento).offset();
+    var target_top = target_offset.top;
+    $('html, body').animate({
+      scrollTop: target_top
+    }, 700);
+  }
+</script>

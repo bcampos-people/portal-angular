@@ -1,0 +1,154 @@
+<div class="overlay-popup">
+  <!--Inicio Share passo 1-->
+  <div class="popup share" id="share1">
+    <div class="btn-fechar close_dash" popup-close></div>
+    <div class="padding_popup">
+      <div class="titulo">
+        <h3>Gerenciar compartilhamento</h3>
+      </div>
+    </div>
+    <div class="popup_pastel" id="border">
+      <div class="padding_popup_side">
+        <div class="box_share">
+          <span class="pastel">{{d.atendimento.local}}</span>
+          <h3>{{diagnostic.translateEncounterType(d.atendimento.type)}}</h3>
+          <div class="hora1">
+            <span class="icon icon-ico_agenda"></span>
+            <span class="data">{{d.atendimento.period.startDate.dateTime| date:'dd/MM/yyyy'}}</span>
+            <img src="assets/images/ico_seta_down.png">
+            <span class="icon icon-ico_agenda"></span>
+            <span class="data">{{d.atendimento.period.endDate.dateTime| date:'dd/MM/yyyy'}}</span>
+          </div>
+
+          <div class="share_with">
+            <p><strong>Compartilhado:</strong> <span ng-repeat="p in d.atendimento.sharedWithPractitionersNameList">
+              {{p}}{{$last ? '' : ', '}}
+            </span> </p>
+          </div>
+          <div class="toogle_ver_mais" id="bt_lista_toggle" fade="#lista_toggle" txt-on="Ver menos" txt-off="Ver mais"><span>Ver mais</span><img src="assets/images/ico_seta_down_v2.png"></div>
+        </div>
+      </div>
+    </div>
+    <div class="popup_pastel lista_toggle" id="lista_toggle">
+      <div class="padding_popup_side">
+        <div class="white_content">
+          <div class="lista_exame_cross">
+            <div ng-repeat="pedidos in d.diagnosticOrders">
+              <div class="content_lista_exame">
+                <span class="uppercase content_lista_exame_item_title">Exames {{diagnostic.translateOrderType(pedidos.diagnosticOrder)}} solicitados em </span>
+                <span class="icon icon-ico_agenda"></span>
+                <span class="hour_ate content_lista_exame_item_title"> {{pedidos.diagnosticOrder.date.dateTime * 1000 | date:'dd.MM.yyyy HH:mm'}} </span>
+              </div>
+              <div class="content_lista_exame_item" ng-repeat="item in pedidos.diagnosticOrder.itemsDiagnosticOrder">
+                <ul>
+                  <li>
+                    {{item.description}}
+                  </li>
+                </ul>
+              </div>
+              <div ng-repeat="exames in pedidos.diagnosticOrder.diagnosticReports | filter : diagnostic.search ">
+                <ul>
+                  <li>
+                    {{exames.description}}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--BUSCA MEDICO-->
+    <div class="padding_popup">
+      <div class="busca_medico">
+        <h3>Selecione os médicos que devem ter acesso</h3>
+        <form id="formFilter">
+          <input type="text" ng-model="diagnostic.searchNamePractitioner" placeholder="Busque o nome do médico para adicionar ou remover permissão de acesso" style="padding: 0 40px; width: 70%" />
+          <!-- <button class="btn bt-default" ng-click="diagnostic.filterPractitioners(d.atendimento)" ng-enable='!vm.loadingPractitioners' type="button">Filtrar</button> -->
+          <button class="btn bt_default" type="submit" id="" ng-class="{'disabled-btn': diagnostic.loadingPractitioners}" ng-click="diagnostic.filterPractitioners(d.atendimento)">
+              Filtrar
+          </button>
+        </form>
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-show="diagnostic.loadingPractitioners">
+          <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+        </div>
+
+        <div ng-show="diagnostic.practitioners.data.length > 0">
+          <table>
+            <thead ng-show="diagnostic.practitioners.data.length > 0">
+              <tr>
+                <th>Nome</th>
+                <th>CRM</th>
+                <th>Adicionar/Remover</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="practitioner in diagnostic.practitioners.data">
+                <td class="nome_busca">
+                  {{practitioner.fullName}}
+                </td>
+                <td>
+                  {{practitioner.crm}} {{practitioner.crmUF}}
+                </td>
+                <td>
+                  <button class="ico_share" ng-click="diagnostic.addToShareList(practitioner, d.atendimento)" ng-show="practitioner.isEnableToShare">
+                  <input type="image" src="assets/images/ico_circle_plus.png"/>
+                </button>
+                  <button class="ico_share" ng-click="diagnostic.addToRemoveList(practitioner, d.atendimento)" ng-show="!practitioner.isEnableToShare">
+                    <input type="image" src="assets/images/ico_circle_menos.png"/>
+                </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="share-pagination" ng-show="diagnostic.practitioners.linkPrevious != null || diagnostic.practitioners.linkNext != null">
+
+          <button class="btn bt_default" ng-click="diagnostic.previousOrNext(d.atendimento, 'previous')" ng-disabled="diagnostic.practitioners.linkPrevious == null" ng-class="{'disabled-btn': diagnostic.practitioners.linkPrevious == null}">
+              &#60;&#60;
+          </button>
+
+          <button class="btn bt_default" ng-click="diagnostic.previousOrNext(d.atendimento,'next')" ng-disabled="diagnostic.practitioners.linkNext == null" ng-class="{'disabled-btn': diagnostic.practitioners.linkNext == null}">
+            &#62;&#62;
+          </button>
+        </div>
+      </div>
+
+      <div class="popup_pastel" id="termos" style="margin-bottom: 10px;">
+        <div class="padding_popup_side text_center">
+
+          <div class="text_pass_pattern border_att" ng-show="diagnostic.showEula">
+            <p style="margin: 20px 10px"> É obrigatório aceitar os termos de uso para continuar com a criação da conta para acesso ao Portal de Exames. </p>
+          </div>
+
+          <div class="wrap_check" ng-show="diagnostic.showEula">
+            <div class="check">
+              <input type="checkbox" value=" " id="check-1" name=" " ng-model="diagnostic.btnclick" ng-disabled="!diagnostic.isAllowToShare">
+              <label for="check-1"></label>
+
+            </div>
+
+            <span>Li e aceito os <a ng-click="eulaShow=! eulaShow" class="link" id="open_termos" style="cursor: pointer">termos de uso</a></span>
+          </div>
+
+          <!--TERMO DE USO-->
+          <div class="lista_toggle_termo_uso " id="termos_popup " ng-show="eulaShow ">
+
+            <div class="white_content ">
+              <div class="lista_exame_cross ">
+                {{diagnostic.eulaText}}
+              </div>
+            </div>
+
+          </div>
+          <!--FIM TERMO DE USO-->
+          <button class="btn bt_default " ng-class="{'disabled-btn': !diagnostic.btnclick}" type="button" id=" " popup popup-template="#popupProcessingShareEncounter" ng-disabled="!diagnostic.btnclick" ng-click="diagnostic.confirmShare(d.atendimento)">
+              PROSSEGUIR
+          </button>
+          <br>
+          <a href="javascript:void(0)" class="link " data-action="close " popup-close>Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </div>

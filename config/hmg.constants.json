@@ -1,0 +1,18 @@
+{
+  "ApplicationProperties": {
+    "BASE_APP": "https://10.250.133.145/portal/",
+    "BASE_URL": "/rdslportal/",
+
+    "TOKEN_NAME": "PORTAL_TOKEN",
+    "CREDENTIAL":"CREDENTIAL",
+
+    "IDLE": "IDLE",
+
+    "TYPE_PATIENT": "PATIENT",
+    "TYPE_PRACTITIONER": "PRACTITIONER",
+
+    "CREDENTIAL_TYPE": "type",
+
+    "USER_TYPE": "USER_TYPE"
+  }
+}

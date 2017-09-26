@@ -1,0 +1,81 @@
+<md-dialog aria-label="Compartilhamento de exames">
+  <form ng-cloak>
+    <div class="overlay-popup">
+      <div class="popup" id="avaliacao">
+        <div class="btn-fechar close_dash"></div>
+        <div class="padding_popup text_center">
+          <div class="titulo">
+            <h3>Olá, Luiz Augusto. Como foi a experiência na realização do seu último exame?</h3>
+          </div>
+          <div class="conteudo">
+            <div class="estrelas">
+              <input type="radio" id="cm_star-empty" name="avaliacao" value="" checked/>
+
+              <label for="cm_star-1"><i class="star"></i></label>
+              <input type="radio" id="cm_star-1" name="avaliacao" value="1" />
+
+              <label for="cm_star-2"><i class="star"></i></label>
+              <input type="radio" id="cm_star-2" name="avaliacao" value="2" />
+
+              <label for="cm_star-3"><i class="star"></i></label>
+              <input type="radio" id="cm_star-3" name="avaliacao" value="3" />
+
+              <label for="cm_star-4"><i class="star"></i></label>
+              <input type="radio" id="cm_star-4" name="avaliacao" value="4" />
+
+              <label for="cm_star-5"><i class="star"></i></label>
+              <input type="radio" id="cm_star-5" name="avaliacao" value="5" />
+            </div>
+          </div>
+
+          <div class="text_center conteudo">
+            <span class="uppercase pastel">Copa D'or</span>
+            <span class="icon icon-ico_agenda"></span>
+            <span class="pastel">12.12.16 às 22h</span>
+            <br>
+            <span class="small_gray">Rua Figueiredo de Magalhães, 875, Copacabana, Rio de Janeiro </span>
+
+          </div>
+
+        </div>
+        <div class="popup_pastel" id="bad_aval">
+          <div class="titulo">
+            <h3>O que poderia fazer a experiência melhor?</h3>
+          </div>
+          <div class="conteudo">
+            <form action="#">
+
+              <textarea name="" placeholder="Conte-nos um pouco como foi sua experiência."></textarea><br>
+              <input type="submit" name="" class="bt_default" value="Enviar">
+            </form>
+          </div>
+        </div>
+        <!--BAD_AVAL-->
+        <div class="popup_pastel" id="good_aval">
+          <div class="titulo">
+            <h3>Gostaria de fazer um elogio?</h3>
+          </div>
+          <div class="conteudo">
+            <form action="#">
+              <textarea name="" placeholder="Conte-nos um pouco como foi sua experiência."></textarea><br>
+              <input type="submit" name="" class="bt_default" value="Enviar">
+            </form>
+          </div>
+        </div>
+        <!--GOOD_AVAL-->
+      </div>
+    </div>
+  </form>
+</md-dialog>
+
+<!-- <script>
+  $(function() {
+    console.log('script modal avaliação');
+    $('.close_dash').click(function(e) {
+      console.log('clicou fechar:');
+      console.log($(this));
+      // $(this).parent(".overlay-popup").fadeOut(400)
+      $('mdDialog').fadeOut(400);
+    });
+  });
+</script> -->

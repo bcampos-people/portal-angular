@@ -1,0 +1,254 @@
+<customized_header></customized_header>
+<section class="dashboard">
+  <div class="container">
+
+    <!-- VISÃO MÉDICO -->
+    <!--PERFIL PACIENTE-->
+    <div class="container_header_paciente" ng-show="diagnostic.isPractitioner()">
+      <div class="bg_header_paciente">
+        <div class="left_header_paciente">
+          <div class="div_img_paciente">
+          </div>
+          <div class="content_dados_paciente">
+            <h3>Paciente</h3>
+            <h2>{{diagnostic.patient.fullName}}</h2>
+            <h4 ng-show="((diagnostic.patient != null) && (diagnostic.patient.birthDate != null))">{{diagnostic.patient.birthDate.dateTime * 1000 | ageFilter}} anos</h4>
+          </div>
+        </div>
+        <div class="right_header_paciente_diagnostic">
+          <ul>
+            <li><img src="assets/images/ico_mail_blue.png"><span>{{diagnostic.patient.email}}</span></li>
+            <li><img src="assets/images/ico_nasci_blue.png"><span>{{diagnostic.patient.birthDate.dateTime * 1000 | date:'dd/MM/yyyy'}}</span></li>
+            <li><img src="assets/images/ico_mobile_blue.png"><span>{{diagnostic.patient.mobilePhone}}</span></li>
+            <li ng-show="((diagnostic.patient != null) && (diagnostic.patient.cpf != null))"><img src="assets/images/ico_cpf_blue.png"><span>CPF: {{diagnostic.patient.cpf | cpf}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!--FIM PERFIL PACIENTE-->
+
+    <!--VERSAO DESKTOP-->
+    <div class="content_box hidden_mobile" ng-show="diagnostic.credential.type == 'TYPE_PATIENT'">
+      <div class="box_dashboard" ng-show="!showDetails">
+        <div class="close_dash" ng-click="showDetails = !showDetails"></div>
+        <div class="box_dash1">
+          <div class="circle_dash"><span class="icon icon-ico_clock"></span></div>
+          <span class="num_box">3</span>
+          <div class="text_dash1">
+            <span>Exames ainda não vistos</span>
+          </div>
+        </div>
+      </div>
+      <!--box_dashboard-->
+      <div class="box_dashboard" ng-show="!showDetails2">
+        <div class="close_dash" ng-click="showDetails2 = !showDetails2"></div>
+        <div class="box_dash2">
+          <span class="title_box">Seu exame está liberado</span><br>
+          <span class="conteudo_box">O exame de Raio-X do Tórax já está disponível na unidade Copa D’Or.</span><br>
+          <a ng-click="diagnostic.gotoAnchor(1)">Ver exame</a>
+        </div>
+      </div>
+      <!--box_dashboard-->
+      <div class="box_dashboard" ng-show="!showDetails3">
+        <div class="close_dash" ng-click="showDetails3 = !showDetails3"></div>
+        <div class="box_dash2">
+          <span class="title_box">Vitamina D anticâncer</span><br>
+          <span class="conteudo_box">Nutricionista do grupo Oncologia D'Or destaca importância do suplemento.</span><br>
+          <a href="http://www.rededor.com.br/sua_saude_detalhe.aspx?id=4254" target="_blank">Veja mais no site da Rede D'Or</a>
+        </div>
+      </div>
+      <!--box_dashboard-->
+    </div>
+    <!--content_box-->
+  </div>
+</section>
+<section class="content_search" ng-cloak>
+  <form>
+    <div class="container">
+      <h2>Resultados de Exames</h2>
+      <!--placeholder="Filtre por local ou nome do exame"-->
+      <input type="text" placeholder="Filtre pelo nome do exame" ng-model="diagnostic.search.description">
+      <input type="submit" value="" class="hidden">
+    </div>
+  </form>
+</section>
+<section class="container_atendimento">
+  <!-- GIF Loading -->
+  <div layout="row" layout-sm="column" layout-align="space-around" ng-show="diagnostic.loading">
+    <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
+  </div>
+
+  <!-- Mensagem de erro  -->
+  <div layout="row" layout-sm="column" layout-align="space-around">
+    <p class="error_class">
+      {{diagnostic.errorMessage}}
+    </p>
+  </div>
+
+  <div ng-show="!diagnostic.hasExams" class="text_central" layout="row" layout-sm="column" layout-align="center center" style="width: 100%">
+    <i class="material-icons">info</i>
+    <span style="font-size: 20px">Você ainda não possui resultados disponíveis para visualização.</span>
+  </div>
+
+  <div class="container">
+    <!--  INÍCIO LOOP -->
+    <div ng-repeat="d in diagnostic.diagnosticReportsGroupByEncounter">
+      <!--content_atendimento Pastel-->
+      <div id="anchor{{$index + 1}}" class="content_atendimento" ng-class="{laranja: d.atendimento.type==='inpatient', pastel: d.atendimento.type!=='inpatient'}">
+        <div class="content_hora">
+          <div class="icon_header mobile">
+            <span class="icon icon-ico_agenda"></span>
+          </div>
+          <div class="hora1">
+            <span class="data">{{d.atendimento.formattedStartDatetime | date:'dd/MM/yyyy'}}</span><br>
+            <span class="icon icon-ico_clock"></span>
+            <span class="hora">{{d.atendimento.formattedStartDatetime | date:'HH:mm'}}</span>
+          </div>
+          <img src="assets/images/ico_seta_down.png" ng-if="d.atendimento.period.endDate != null">
+          <div class="hora1" ng-if="d.atendimento.period.endDate != null">
+            <span class="data">{{d.atendimento.formattedEndDatetime | date:'dd/MM/yyyy'}}</span><br>
+            <span class="icon icon-ico_clock"></span>
+            <span class="hora">{{d.atendimento.formattedEndDatetime | date:'HH:mm'}}</span>
+          </div>
+        </div>
+
+        <div class="content_lista_atendimento" ng-class="{laranja: d.atendimento.type == 'Atendimento Emergencial'}">
+          <div class="header_atendimento">
+
+            <!--//TODO Demo - remover-->
+            <div ng-show="d.atendimento.type === 'Atendimento Emergencial'" class="icon_header hidden_mobile">
+              <img src="assets/images/ico_atend_emergencial.png" />
+            </div>
+
+            <!--//TODO Demo - remover -->
+            <div ng-show="d.atendimento.type !== 'Atendimento Emergencial'" class="icon_header hidden_mobile">
+              <img src="assets/images/ico_aten_ambulatorial.png" />
+            </div>
+
+            <div class="bg_atendimento">
+              <div class="header_atendimento_desc">
+                <h2>{{d.atendimento.local}}</h2>
+                <h3>{{diagnostic.translateEncounterType(d.atendimento.type)}}</h3>
+                <a href="javascript:void(0);" data-popup="modal" data-open="avaliacao" id="link_aval" style="display:none">Avaliar atendimento</a>
+                <!--//TODO Demo - display none-->
+                <div class="bt_default mobile pastel bt_lista_atend">Ver Mais</div>
+                <div class="share_with" ng-show="d.atendimento.sharedWithPractitionersNameList.length > 0">
+                  <p><img src="assets/images/ico_share_gray.png"><strong>Compartilhado:</strong>
+                    <span ng-repeat="p in d.atendimento.sharedWithPractitionersNameList">
+                      {{p}}{{$last ? '' : ', '}}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <!--  Fim header_atendimento_desc -->
+              <div class="header_atendimento_bts">
+                <!-- <a href="javascript:void(0)" class="bt_default bt_share" data-width="870" data-popup="modal" data-open="share1" id="shareMedico"> -->
+                <a class="bt_default bt_share" popup="app/components/compartilhamento/share.tmpl.html" popup-width="870" ng-show="diagnostic.perfil() === 'p'" ng-click="diagnostic.preparePopup()">
+                  <!-- <a class="bt_default bt_share" popupp="share1" popup-width="870" name="Teste" ng-show="diagnostic.perfil() === 'p'"> -->
+                  <img src="assets/images/ico_share_blue.png" class="hover_bt ">
+                  <img src="assets/images/ico_share_white.png" class="hover_bt share_white "> COMPARTILHAR com médico
+                </a>
+              </div>
+              <!--header_atendimento_desc-->
+            </div>
+            <!--bg_atendimento-->
+          </div>
+          <div>
+          <div class="lista_exames ">
+            <div ng-repeat="pedidos in d.diagnosticOrders | filter:diagnostic.updateFilteredData()">
+            <!-- <div ng-repeat="pedidos in d.diagnosticOrders"> -->
+              <div class="content_item_exame ">
+                <div class="titulo_lista ">
+                  <div class="conten_item_mobile">
+                    <span class="uppercase">Exames {{diagnostic.translateOrderType(pedidos.diagnosticOrder)}} SOLICITADOS em </span>
+                    <span class="icon icon-ico_agenda "></span>
+                    <span class="hour_ate ">{{pedidos.diagnosticOrder.formattedDatetime | date:'dd.MM.yyyy HH:mm'}}</span>
+                  </div>
+                </div>              
+                <div ng-repeat="exames in pedidos.diagnosticOrder.diagnosticReports | filter:diagnostic.updateFilteredData()">
+                  <div class="item_exame ">
+                    <div class="content_item green hidden_mobile" ng-class="{green: exames.type=='LIS', blue: exames.type=='RIS'} ">
+                      <div class="ico ">
+                        <div class="img_ico">
+                          <img src="assets/images/ico_hemo.png?" ng-show="exames.type=='LIS'">
+                        </div>
+                        <div class="img_ico">
+                          <img src="assets/images/ico_exame.png?" ng-show="exames.type=='RIS'">
+                        </div>
+                      </div>
+                    </div>
+                    <div class=" title_exame ">{{exames.description}}</div>
+                    <a ng-show="{{exames.medicalReport !==null}}" ng-click="diagnostic.getLinkToPdf(exames)" ng-href="{{diagnostic.fileURLPdf}}" target="_blank"><img src="assets/images/ico_laudo.png?1">Ver Laudo</a>
+                    <a ng-show="{{exames.medicalReport !== null && exames.type == 'RIS'}}" ng-click="diagnostic.linkToViewer(exames, false)" target="_blank"><img src="assets/images/ico_exame_green.png?1">Ver exame</a>
+                    <a ng-show="{{exames.medicalReport !== null && exames.type == 'RIS'}}" ng-click="diagnostic.linkToViewer(exames, true)">
+                      <img src="assets/images/ico_download_green.png?1">
+                      Baixar
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <a class="bt_default bt_large" id="load_more" ng-click="diagnostic.loadMoreDiagnostics()" ng-show="diagnostic.showLoadMoreDiagnostics()">
+            <img src="assets/images/ico_carregar.png">
+            <img src="assets/images/ico_carregar_white.png" class="hover_bt load_white">
+            Carregar mais
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--CONTENT ATENDIMENTO EMERGENCIA(LARANJA)-->
+</section>
+
+<div class="overlay-popup">
+  <div class="popup" id="popupProcessingShareEncounter">
+    <div class="btn-fechar close_dash" popup-close ng-show=diagnostic.showPopupProcessingSharingEncounter></div>
+    <div class="padding_popup text_center">
+      <div class="loading" ng-show=diagnostic.showPopupProcessingSharingEncounter layout="column" layout-sm="column" layout-align="center center">
+        <md-progress-circular md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+        <h3>Aplicando alterações de compartilhamento de exames</h3>
+      </div>
+
+      <div ng-show=diagnostic.showPopupConfirmSharingEncounter>
+        <img src="assets/images/ico_confirm.png">
+        <div class="titulo">
+          <h3 class="share-practitioner">O acesso aos exames foi alterado.</h3>
+          <div ng-show='diagnostic.practitionersHavePermission.length != 0'>
+            Os seguintes médicos possuem permissão de acesso:
+          </div>
+          <br/>
+          <div id="lista-medicos" style="height: 200px;overflow: auto;">
+            <div ng-repeat="p in diagnostic.practitionersHavePermission">
+              {{p}}
+            </div>
+          </div>
+        </div>
+        <div class="text_center">
+          <button class="btn bt_default" popup-close type="button">Concluir</button>
+        </div>
+      </div>
+      <div ng-show=diagnostic.showPopupErrorSharingEncounter>
+        <img src="assets/images/ico_error.png">
+        <div class="titulo">
+          <h3 class="share-practitioner">Erro ao modificar permissões de compartilhamento. </h3>
+        </div>
+        <div class="text_center">
+          <button class="btn bt_default" popup-close type="button">Concluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function() {
+
+    /* SCRIPT LISTA PACIENTES*/
+    $('.destaque').click(function(e) {
+      $(this).toggleClass('checked')
+    });
+    /*FIM SCRIPT LISTA PACIENTES*/
+
+  })
+</script>

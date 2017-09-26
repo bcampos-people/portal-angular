@@ -1,0 +1,68 @@
+﻿<customized_header></customized_header>
+
+<!--PERFIL-->
+<section class="dashboard" id="perfil_config">
+  <div class="container">
+    <!--PERFIL MEDICO-->
+    <div class="container_header_paciente" ng-show="!practitionerPerfil.loading">
+      <div class="bg_header_paciente">
+        <div class="left_header_paciente">
+          <div class="div_img_paciente"></div>
+          <!--<div class="div_img_paciente" style="background-image:url(assets/images/img_perfil_doc.jpg)"></div>-->
+          <div class="content_dados_paciente">
+            <h3>Nome</h3>
+            <h2>{{practitionerPerfil.data.fullName}}</h2>
+            <h3>Data de Nascimento</h3>
+            <!-- FIXME - Descobrir a necessidade de multiplicar a data por 1000 -->
+            <h2>{{practitionerPerfil.data.birthDate.dateTime * 1000 | date:'dd/MM/yyyy'}}</h2>
+            <a ng-click="practitionerPerfil.goToPasswordReset()" class="bt_default">Alterar senha</a>
+          </div>
+        </div>
+        <div class="right_header_paciente">
+          <ul>
+            <li>Nome<br><span>{{practitionerPerfil.data.fullName}}</span></li>
+            <li>E-mail<br><span>{{practitionerPerfil.data.email}}</span></li>
+            <li>CRM<br><span>{{practitionerPerfil.data.crm}}</span></li>
+            <li>CPF<br><span>{{practitionerPerfil.data.cpf | cpf}}</span></li>
+            <li>Celular<br><span>{{practitionerPerfil.data.mobilePhone}}</span></li>
+            <li>Login<br><span>{{practitionerPerfil.data.login}}</span></li>
+            <li>ENDEREÇO CONSULTÓRIO<br><span>{{practitionerPerfil.data.addressOffice}}</span></li>
+          </ul>
+          <div class="content_alert" style="display: none">
+            <!--//TODO Demo - display none-->
+            <h2>Notificações por email</h2>
+            <div class="item_alert">
+              <div class="txt_alert">Receber notificações de novos resultados de exames de pacientes que acompanho</div>
+              <div class="bt_alert">
+                <label class="content_share">
+                  <input name="" class="ace ace-switch ace-switch-4" type="checkbox" value=""/>
+                  <span class="lbl"></span>
+                </label>
+              </div>
+            </div>
+            <!--FIM ITEM ALERT-->
+
+            <div class="item_alert">
+              <div class="txt_alert">Receber informações sobre a Rede D’Or</div>
+              <div class="bt_alert">
+                <label class="content_share">
+                  <input name="" class="ace ace-switch ace-switch-4" type="checkbox" value="">
+                  <span class="lbl"></span>
+                </label>
+              </div>
+            </div>
+            <!--FIM ITEM ALERT-->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!--FIM PERFIL MEDICO-->
+
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-show="practitionerPerfil.loading">
+      <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
+    </div>
+  </div>
+  <!--container-->
+</section>

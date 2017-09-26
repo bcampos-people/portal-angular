@@ -1,0 +1,67 @@
+﻿<section id="bg_home">
+  <div class="left_login">
+    <div class="content_center">
+      <img src="assets/images/logo_login.png"><br>
+      <h1>Portal de pacientes</h1>
+    </div>
+  </div>
+
+  <!--ESCOLHER TIPO DE LOGIN-->
+  <div class="right_login" id="portal" ng-show="login.showAll">
+    <div class="content_center">
+      <h2>Seja bem-vindo</h2>
+      <a ng-click="login.typePatient()" class="bt_default bt_large">Sou paciente</a>
+      <a ng-click="login.typePractitioner()" class="bt_default bt_large">Sou Médico</a>
+      <ul>
+        <li>• Acompanhe os resultados de exames</li>
+        <li>• Veja seu histórico</li>
+        <li>• Compartilhe com seu médico</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="right_login" id="acesso" ng-show="login.showLogin">
+    <div class="content_center">
+      <h2>Acesse</h2>
+
+      <form id="login-2" ng-submit="login.doLogin()">
+        <div class="content_name">
+          <input ng-model="login.username" type="text" placeholder="Usuário" required/>
+        </div>
+        <input ng-model="login.password" type="password" placeholder="Senha" required/>
+
+        <a ui-sref="root.login_remember" class="link">Esqueci minha senha</a>
+
+        <div class="content_bts">
+          <button class="bt_default bt_large" type="submit">Entrar</button>
+        </div>
+        <a ng-click="login.cancel()" class="link">Cancelar</a>
+
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-show="login.loading">
+          <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
+        </div>
+
+        <span class="red" ng-show="login.showError">{{login.errorMsg}}</span>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!--TODO Demo - REMOVER-->
+<script type="text/javascript">
+  var mobile = (/iphone|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
+  if (mobile) {} else {
+    function Resize() {
+      console.log("resize");
+      altura_janela = $(window).height() - 216;
+      $('#bg_home').css('height', altura_janela + "px")
+    }
+    $(function() {
+      Resize();
+    })
+    $(window).resize(function() {
+      Resize();
+    })
+  }
+</script>

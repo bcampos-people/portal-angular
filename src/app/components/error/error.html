@@ -1,0 +1,35 @@
+<section id="bg_home">
+  <div class="left_login">
+    <div class="content_center">
+      <img src="assets/images/logo_login.png"><br>
+      <h1>Portal de pacientes</h1>
+    </div>
+  </div>
+
+  <div class="right_login" id="portal" >
+    <div class="content_center">
+      <h2>Portal temporaiamente indisponível</h2>
+      Aguarde uns minutos e tente novamente.
+      <a style="margin-top: 50px;" ui-sref="root.login" class="bt_default bt_large">Voltar ao Portal</a>
+    </div>
+  </div>
+  
+</section>
+
+<!--TODO Demo - REMOVER-->
+<script type="text/javascript">
+  var mobile = (/iphone|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
+  if (mobile) {} else {
+    function Resize() {
+      console.log("resize");
+      altura_janela = $(window).height() - 216;
+      $('#bg_home').css('height', altura_janela + "px")
+    }
+    $(function() {
+      Resize();
+    })
+    $(window).resize(function() {
+      Resize();
+    })
+  }
+</script>

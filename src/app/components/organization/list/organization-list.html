@@ -1,0 +1,185 @@
+﻿<customized_header></customized_header>
+
+<!--BUSCA PACIENTES-->
+<section id="busca_pacientes">
+  <div class="container">
+    <div class="busca_pacientes">
+      <h2>Locais de Exames</h2>
+      <div class="form_busca_paciente">
+        <input type="text" class="busca_input" placeholder="Busque pela unidade" ng-model="organizationList.search">
+        <input type="submit" value="" class="hidden">
+      </div>
+    </div>
+    <div class="order_pacientes">
+      <span>Filtrar por Estado</span>
+      <select>
+        <option>Escolher</option>
+        <option>Rio de Janeiro</option>
+      </select>
+    </div>
+
+  </div>
+</section>
+<!--FIM BUSCA PACIENTES-->
+
+<!--LISTA LOCAIS-->
+<section class="lista_boxes" id="lista_locais">
+  <div class="container">
+    <div class="topo_lista">
+      <div class="info_left">
+        <h2>Unidades</h2>
+        <img src="assets/images/ico_locais.png" width="11"><span>Rio de Janeiro</span>
+      </div>
+    </div>
+
+    <!-- INÍCIO LISTA LOCAIS-->
+    <div class="content_lista_paciente">
+
+      <!--INICIO LOOPING BOX-->
+      <!---->
+      <div class="box_white" ng-repeat="organization in organizationList.organizations | filter : organizationList.search | orderBy : 'name'">
+        <div class="header_box">
+          <img src="assets/images/ico_locais.png">
+          <div class="box_nome">
+            <h2>{{organization.name}}</h2>
+          </div>
+          <div class="box_text">
+            <p>{{organization.address}}
+            </p>
+            <p>Tel: {{organization.phone}}</p>
+          </div>
+          <!--<div class="box_link">
+            <a href="javascript:void(0)" data-width="870" data-popup="modal" data-open="locais_exames">Ver planos aceitos</a>
+          </div>-->
+        </div>
+      <!--FIM LOOPING BOX-->
+    </div>
+    <!-- FIM INÍCIO LISTA BOX-->
+
+    <!--<a href="#" class="bt_default bt_large">
+            <img src="assets/images/ico_carregar.png">
+            <img src="assets/images/ico_carregar_white.png" class="hover_bt load_white">
+            Carregar mais
+        </a>-->
+
+  </div>
+</section>
+<!--FIM LISTA PACIENTES-->
+
+<!-- popup Exame Compartilhado-->
+<div class="overlay-popup">
+
+  <!--Inicio Share passo 1-->
+  <div class="popup share" id="locais_exames">
+    <div class="btn-fechar close_dash"></div>
+    <div class="padding_popup">
+      <div class="titulo">
+        <h3>Hospital Copa D’Or</h3>
+        <h4>Planos Aceitos</h4>
+      </div>
+      <div class="content_end">
+        <p>Av. João Firmino, 250 - Assunção,<br> São Bernardo do Campo - SP, 09810-010<br> Tel: (11) 4344-8000</p>
+      </div>
+    </div>
+
+    <div class="popup_pastel">
+      <div class="padding_popup_side">
+        <div class="white_content">
+          <div class="lista_exame_cross">
+
+            <ul>
+              <li>Amil</li>
+              <li class="li_sub">Amil Ouro 3</li>
+              <li class="li_sub">Amil Prata 1</li>
+              <li>Bradesco Saúde</li>
+              <li>Sulamérica</li>
+              <li class="li_sub">Sulamérica Ouro 3</li>
+              <li class="li_sub">Sulamérica Prata 1</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--FIM POPUP_PASTEL-->
+
+    <div class="popup_pastel" id="termos">
+      <div class="padding_popup_side text_center">
+
+        <div class="bt_default" data-action="close">Concluir</div>
+
+      </div>
+    </div>
+
+  </div>
+  <!--Fim Share passo 1-->
+</div>
+<!-- popup Exame Compartilhado-->
+<script type="text/javascript">
+  $(function () {
+
+    /* SCRIPT LISTA PACIENTES*/
+    $('.destaque').click(function (e) {
+      $(this).toggleClass('check')
+    });
+    /*FIM SCRIPT LISTA PACIENTES*/
+
+    /*POPUP*/
+
+    $('[data-popup="modal"]').on('click', function (e) {
+      var target = $(this).data('open');
+      var height = $('#' + target).outerHeight();
+
+      $('body').css({
+        "overflow": "hidden",
+      });
+
+
+      if ($(this).data('width')) {
+        var width = $(this).data('width');
+
+        $('#' + target).css({
+          "display": "inline-block",
+          "width": width + "px",
+          //			"margin-top" : - height / 2 + "px",
+          //		"margin-left" : - width / 2 + "px",
+        });
+      } else {
+        $('#' + target).css({
+          "display": "inline-block",
+          "width": "600px",
+          //			"margin-top" : - height / 2 + "px",
+          //		"margin-left" :  "-300px",
+        });
+      }
+      $('#' + target).fadeIn(300);
+      //$('body').find('.overlay-popup').remove();
+      //$('body').append('<div class="overlay-popup"></div>');
+      $('#' + target).parent().css({
+        "display": "block",
+      });
+    });
+
+    $('.popup .btn-fechar').on('click', function (e) {
+      $(e.target).closest('.popup').fadeOut();
+      $('body').find('.overlay-popup').fadeOut(300, function () {
+        //$('body').find('.overlay-popup').remove();
+      });
+      $('body').css({
+        "overflow": "auto",
+      });
+    });
+
+    $('[data-action="close"]').on('click', function (e) {
+      $(e.target).closest('.popup').fadeOut();
+      $('body').find('.overlay-popup').fadeOut(300, function () {
+        //$('body').find('.overlay-popup').remove();
+      });
+      $('body').css({
+        "overflow": "auto",
+      });
+    });
+
+  })
+
+</script>

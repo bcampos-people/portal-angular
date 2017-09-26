@@ -1,0 +1,27 @@
+{
+  "ApplicationProperties": {
+    "BASE_APP": "https://10.250.133.145:433/portal/",
+    "BASE_URL": "/rdslportal/",
+
+    "TOKEN_NAME": "PORTAL_TOKEN",
+    "CREDENTIAL":"CREDENTIAL",
+
+    "IDLE": "IDLE",
+
+    "TYPE_PATIENT": "PATIENT",
+    "TYPE_PRACTITIONER": "PRACTITIONER",
+
+    "CREDENTIAL_TYPE": "type",
+
+    "USER_TYPE": "USER_TYPE",
+
+    "TELEFONE_MARCACAO_EXAMES": "(21) 3003-3230",
+    "EMAIL_MARCACAO_EXAMES": "marcarexames@rededor.com.br",
+    "TELEFONE_ATENDIMENTO" : "(21) 3003-4330",
+    "EMAIL_ATENDIMENTO": "exames@rededor.com.br",
+    "FACEBOOK":"http://www.facebook.com.br",
+    "TWITTER":"http://www.twitter.com.br",
+    "LINKEDIN":"http://www.linkedin.com.br",
+    "YOUTUBE":"http://www.youtube.com"
+  }
+}

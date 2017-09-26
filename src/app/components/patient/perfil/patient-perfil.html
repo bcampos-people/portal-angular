@@ -1,0 +1,66 @@
+﻿<customized_header></customized_header>
+
+<!--PERFIL-->
+<section class="dashboard" id="perfil_config">
+  <div class="container">
+    <!--PERFIL paciente-->
+    <div class="container_header_paciente" ng-show="!patientPerfilController.loading">
+      <div class="bg_header_paciente">
+        <div class="left_header_paciente">
+          <div class="div_img_paciente"></div>
+          <!--<div class="div_img_paciente" style="background-image:url(assets/images/foto_perfil_v2.png)"></div>-->
+          <div class="content_dados_paciente">
+            <h3>Nome</h3>
+            <h2>{{patientPerfilController.data.fullName}}</h2>
+            <h3>Data de Nascimento</h3>
+            <!-- FIXME - Descobrir a necessidade de multiplicar a data por 1000 -->
+            <h2>{{patientPerfilController.data.birthDate.dateTime * 1000| date:'dd/MM/yyyy'}}</h2>
+            <a ng-click="patientPerfilController.goToPasswordReset()" class="bt_default">Alterar senha</a>
+          </div>
+        </div>
+        <div class="right_header_paciente">
+          <ul>
+            <li>Nome<br><span>{{patientPerfilController.data.fullName}}</span></li>
+            <li>E-mail<br><span>{{patientPerfilController.data.email}}</span></li>
+            <li>CPF<br><span>{{patientPerfilController.data.cpf | cpf}}</span></li>
+            <li>Celular<br><span>{{patientPerfilController.data.mobilePhone}}</span></li>
+            <li>Login<br><span>{{patientPerfilController.data.login}}</span></li>
+          </ul>
+          <div class="content_alert" style="display: none"><!--//TODO Demo - display none-->
+            <h2>Notificações por email</h2>
+            <div class="item_alert">
+              <div class="txt_alert">Receber notificações de novos resultados de exames</div>
+              <div class="bt_alert">
+                <label class="content_share">
+                  <input name="" class="ace ace-switch ace-switch-4" type="checkbox" value=""/>
+                  <span class="lbl"></span>
+                </label>
+              </div>
+            </div>
+            <!--FIM ITEM ALERT-->
+
+            <div class="item_alert">
+              <div class="txt_alert">Receber informações sobre a Rede D’Or</div>
+              <div class="bt_alert">
+                <label class="content_share">
+                  <input name="" class="ace ace-switch ace-switch-4" type="checkbox" value="">
+                  <span class="lbl"></span>
+                </label>
+              </div>
+            </div>
+            <!--FIM ITEM ALERT-->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!--FIM PERFIL paciente-->
+
+    <div layout="row" layout-sm="column" layout-align="space-around" ng-show="patientPerfilController.loading">
+      <md-progress-circular md-mode="indeterminate" md-diameter="60"></md-progress-circular>
+    </div>
+
+  </div>
+  <!--container-->
+</section>
